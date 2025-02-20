@@ -2,6 +2,9 @@
 .DS_Store
 .*.swp
 /dl
+/feed-toolchain-3006
+/env
+/output
 /.config
 /.config.old
 /bin
