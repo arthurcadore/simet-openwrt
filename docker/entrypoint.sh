@@ -13,19 +13,19 @@ echo "###############################################"
 echo "## Building the Archives                     ##"
 echo "###############################################"
 make tools/clean
+make package/utils/jsonfilter/clean
+make package/feeds/simetbox/simetbox-openwrt-simet-lmapd/clean
+make package/feeds/simetbox/simetbox-openwrt-simet-ma/clean
+make package/system/procd/clean
+make package/system/rpcd/clean
+make package/feeds/packages/qrencode/clean 
 make tools/compile V=s
 make tools/install V=s
-make package/utils/jsonfilter/clean
 make package/utils/jsonfilter/compile V=s
-make package/feeds/simetbox/simetbox-openwrt-simet-lmapd/clean
 make package/feeds/simetbox/simetbox-openwrt-simet-lmapd/compile V=s
-make package/feeds/simetbox/simetbox-openwrt-simet-ma/clean
 make package/feeds/simetbox/simetbox-openwrt-simet-ma/compile V=s
-make package/system/procd/clean
 make package/system/procd/compile V=s
-make package/system/rpcd/clean
 make package/system/rpcd/compile V=s
-make package/feeds/packages/qrencode/clean 
 make package/feeds/packages/qrencode/compile V=s
 
 echo "###############################################"
