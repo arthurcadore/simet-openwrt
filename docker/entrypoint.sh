@@ -12,8 +12,6 @@ echo "https://${GIT_USER}:${GIT_PASSWORD}@git.intelbras.com.br" > ~/.git-credent
 echo "###############################################"
 echo "## Building the Archives                     ##"
 echo "###############################################"
-./scripts/feeds update -a
-./scripts/feeds install -a
 make tools/clean
 make tools/compile V=s
 make tools/install V=s
