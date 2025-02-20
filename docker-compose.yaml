@@ -1,0 +1,21 @@
+services:
+  # OpenWrt builder container
+  openwrtbuilder:
+    image: arthurcadore/openwrt-build:19
+    volumes: 
+      - ./:/host/
+      - ./docker/entrypoint.sh:/startup.sh
+    working_dir: /host/
+    entrypoint: ["/bin/sh", "/startup.sh"]
+    env_file:
+      - ./env/.env_credentials
+
+  # http server to serve the output files to be downloaded for testing.
+  httpserver:
+    image: httpd:alpine3.18
+    container_name: httpserver
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - "./output/:/usr/local/apache2/htdocs/"

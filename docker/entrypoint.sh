@@ -1,0 +1,45 @@
+#!/bin/sh
+set -e
+
+echo "###############################################"
+echo "## Configuring Git                           ##"
+echo "###############################################"
+
+git config --global --add safe.directory /host
+git config --global credential.helper store
+echo "https://${GIT_USER}:${GIT_PASSWORD}@git.intelbras.com.br" > ~/.git-credentials
+
+echo "###############################################"
+echo "## Building the Archives                     ##"
+echo "###############################################"
+./scripts/feeds update -a
+./scripts/feeds install -a
+make tools/clean
+make tools/compile V=s
+make tools/install V=s
+make package/utils/jsonfilter/clean
+make package/utils/jsonfilter/compile V=s
+make package/feeds/simetbox/simetbox-openwrt-simet-lmapd/clean
+make package/feeds/simetbox/simetbox-openwrt-simet-lmapd/compile V=s
+make package/feeds/simetbox/simetbox-openwrt-simet-ma/clean
+make package/feeds/simetbox/simetbox-openwrt-simet-ma/compile V=s
+make package/system/procd/clean
+make package/system/procd/compile V=s
+make package/system/rpcd/clean
+make package/system/rpcd/compile V=s
+make package/feeds/packages/qrencode/clean 
+make package/feeds/packages/qrencode/compile V=s
+
+echo "###############################################"
+echo "## Build finished                            ##"
+echo "###############################################"
+
+echo "###############################################"
+echo "## Compressing Output File...                ##"
+echo "###############################################"
+
+mkdir -p /host/output
+tar -czvf /host/output/root-ramips.tar.gz -C /host/simet-openwrt/staging_dir/target-mipsel-openwrt-linux-musl_musl/root-ramips .
+
+# # Mantain the container running
+# tail -f /dev/null
