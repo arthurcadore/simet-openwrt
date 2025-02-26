@@ -5,8 +5,6 @@
 /feed-toolchain-3006
 /env
 /output
-/.config
-/.config.old
 /bin
 /build_dir
 /staging_dir
