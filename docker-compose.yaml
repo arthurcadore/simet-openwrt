@@ -8,7 +8,7 @@ services:
     working_dir: /host/
     entrypoint: ["/bin/sh", "/startup.sh"]
     env_file:
-      - ./env/.env_credentials
+      - ./env/.git_credentials
 
   # http server to serve the output files to be downloaded for testing.
   httpserver:
