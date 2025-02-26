@@ -34,6 +34,8 @@ echo "###############################################"
 echo "## Build finished                            ##"
 echo "###############################################"
 
+cp -r includes/* staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/
+
 echo "###############################################"
 echo "## Compressing Output File...                ##"
 echo "###############################################"
