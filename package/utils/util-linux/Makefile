@@ -624,7 +624,7 @@ endef
 
 define Package/flock/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/flock $(1)/usr/bin/util-linux-flock
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/flock $(1)/usr/bin/flock
 endef
 
 define Package/fstrim/install
