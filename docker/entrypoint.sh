@@ -36,6 +36,8 @@ echo "###############################################"
 
 cp -r includes/* staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/
 
+cp /host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/usr/bin/flock /host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/usr/bin/util-linux-flock
+
 echo "###############################################"
 echo "## Compressing Output File...                ##"
 echo "###############################################"
