@@ -1,3 +1,5 @@
+.PHONY: all stop start build clean toolchain
+
 include ./env/.git_credentials
 export
 
@@ -5,15 +7,15 @@ all: build start
 
 build:
 	@echo "Building..."
-	@docker-compose build
+	@docker compose build
 
 start:
 	@echo "Starting..."
-	@docker-compose up -d
+	@docker compose up 
 
 stop:
 	@echo "Stopping..."
-	@docker-compose down
+	@docker compose down
 
 clean: stop
 	docker ps -a -q | xargs -r docker stop
@@ -24,5 +26,7 @@ clean: stop
 toolchain:
 	@echo "Installing toolchain..."
 	@echo "GIT_USER=$${GIT_USER}"
-	@git clone https://$${GIT_USER}:$${GIT_PASSWORD}@git.intelbras.com.br/remp495/feed-toolchain-3006 ./build/feed-toolchain-3006
+	@echo "GIT_REPO=$${GIT_REPO}"
+	@echo "GIT_URL=$${GIT_URL}"
+	@git clone https://$${GIT_USER}:$${GIT_PASSWORD}@$${GIT_URL} ./build/$${GIT_REPO}
 	
