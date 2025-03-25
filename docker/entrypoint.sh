@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+ROOT_DIR=/host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek
+FLOCK_DIR=$ROOT_DIR/usr/bin
+
 echo "###############################################"
 echo "## Configuring Git                           ##"
 echo "###############################################"
@@ -10,8 +13,15 @@ git config --global credential.helper store
 echo "https://${GIT_USER}:${GIT_PASSWORD}@git.intelbras.com.br" > ~/.git-credentials
 
 echo "###############################################"
+echo "## Adding Custom Files                      ##"
+echo "###############################################"
+
+cp -r /host/custom/* /host/
+
+echo "###############################################"
 echo "## Building the Archives                     ##"
 echo "###############################################"
+
 make tools/clean
 make package/utils/jsonfilter/clean
 make package/feeds/simetbox/simetbox-openwrt-simet-lmapd/clean
@@ -34,13 +44,31 @@ echo "###############################################"
 echo "## Build finished                            ##"
 echo "###############################################"
 
-cp -r /host/includes/* /host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/
+echo "###############################################"
+echo "## Adding Include Files                      ##"
+echo "###############################################"
 
-cp /host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/usr/bin/flock /host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/usr/bin/util-linux-flock
+cp -r /host/includes/* $ROOT_DIR/
+
+if [ -f $FLOCK_DIR/util-linux-flock ]; then
+    echo "###############################################"
+    echo "## duplicating "util-linux-flock" file       ##"
+    echo "###############################################"
+    cp $FLOCK_DIR/util-linux-flock $FLOCK_DIR/flock
+fi
+
+if [ -f $FLOCK_DIR/flock ]; then
+    echo "###############################################"
+    echo "## duplicating "flock" file                  ##"
+    echo "###############################################"
+    cp $FLOCK_DIR/flock $FLOCK_DIR/util-linux-flock 
+fi
 
 echo "###############################################"
 echo "## Compressing Output File...                ##"
 echo "###############################################"
 
-mkdir -p /host/output
-tar -czvf /host/output/root-mediatek.tar.gz -C /host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek .
+OUTPUT_DIR=/host/output
+
+mkdir -p $OUTPUT_DIR
+tar -czvf $OUTPUT_DIR/root-mediatek.tar.gz -C $ROOT_DIR .

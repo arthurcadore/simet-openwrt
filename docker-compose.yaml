@@ -5,6 +5,7 @@ services:
     volumes: 
       - ./build/:/host/
       - ./includes/:/host/includes/
+      - ./custom/:/host/custom/
       - ./output/:/host/output/
       - ./docker/entrypoint.sh:/startup.sh
       - ./config/.config:/host/.config
