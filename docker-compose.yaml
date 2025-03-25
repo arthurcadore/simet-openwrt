@@ -3,7 +3,9 @@ services:
   openwrtbuilder:
     image: arthurcadore/openwrt-build:19
     volumes: 
-      - ./:/host/
+      - ./build/:/host/
+      - ./includes/:/host/includes/
+      - ./output/:/host/output/
       - ./docker/entrypoint.sh:/startup.sh
     working_dir: /host/
     entrypoint: ["/bin/sh", "/startup.sh"]
