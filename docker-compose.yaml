@@ -7,6 +7,10 @@ services:
       - ./includes/:/host/includes/
       - ./output/:/host/output/
       - ./docker/entrypoint.sh:/startup.sh
+      - ./config/.config:/host/.config
+      - ./config/feed.conf:/host/feeds.conf
+      - ./config/feeds.conf.default:/host/feeds.conf.default
+    container_name: openwrtbuilder
     working_dir: /host/
     entrypoint: ["/bin/sh", "/startup.sh"]
     env_file:
