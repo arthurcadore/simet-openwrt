@@ -3,9 +3,9 @@
 include ./env/.git_credentials
 export
 
-all: build start
+all: start
 
-build:
+build: toolchain
 	@echo "Building..."
 	@docker compose build
 
