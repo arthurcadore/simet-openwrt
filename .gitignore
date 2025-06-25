@@ -3,6 +3,7 @@
 .*.swp
 /dl
 /feed-toolchain-3006
+/feed-toolchain-3005
 /env
 /output
 /bin
