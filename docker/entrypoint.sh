@@ -9,9 +9,15 @@ git config --global --add safe.directory /host
 git config --global credential.helper store
 echo "https://${GIT_USER}:${GIT_PASSWORD}@git.intelbras.com.br" > ~/.git-credentials
 
+#./scripts/feeds update -a
+#./scripts/feeds install -a
+
+tail -f /dev/null &
+
 echo "###############################################"
 echo "## Building the Archives                     ##"
 echo "###############################################"
+make clean
 make tools/clean
 make package/utils/jsonfilter/clean
 make package/feeds/simetbox/simetbox-openwrt-simet-lmapd/clean
@@ -34,16 +40,16 @@ echo "###############################################"
 echo "## Build finished                            ##"
 echo "###############################################"
 
-cp -r includes/* staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/
+cp -r includes/* staging_dir/target-mipsel-openwrt-linux-musl_musl/root-ramips/
 
-cp /host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/usr/bin/flock /host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek/usr/bin/util-linux-flock
+cp /host/staging_dir/target-mipsel-openwrt-linux-musl_musl/root-ramips/usr/bin/flock /host/staging_dir/target-mipsel-openwrt-linux-musl_musl/root-ramips/usr/bin/util-linux-flock
 
 echo "###############################################"
 echo "## Compressing Output File...                ##"
 echo "###############################################"
 
 mkdir -p /host/output
-tar -czvf /host/output/root-mediatek.tar.gz -C /host/staging_dir/target-aarch64-openwrt-linux-musl_musl/root-mediatek .
+tar -czvf /host/output/root-ramips.tar.gz -C /host/staging_dir/target-mipsel-openwrt-linux-musl_musl/root-ramips .
 
 # # Mantain the container running
 # tail -f /dev/null
